@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coding Exercise Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://d3.violet.vn/uploads/previews/document/0/970/708/Hinh_nen11.jpg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .form-group, .exercise {
+            margin: 15px 0;
+        }
+        input[type="text"], input[type="password"], input[type="search"], select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 8px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 14px;
+            margin-right: 5px; /* Added margin for spacing */
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .editor {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            height: 400px;
+            overflow: auto;
+            background-color: #f9f9f9;
+            font-family: monospace;
+        }
+        .feedback {
+            margin-top: 20px;
+            display: none;
+        }
+        .timer {
+            text-align: center;
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        .submission-history {
+            display: none;
+            margin-top: 20px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 20px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="login-container">
+    <h2>Login</h2>
+    <div class="form-group">
+        <label for="username">Username/Email</label>
+        <input type="text" id="username" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" required>
+    </div>
+    <button onclick="login()">Login</button>
+    <div class="forgot-password">
+        <a href="#">Forgot Password?</a>
+    </div>
+</div>
+
+<div class="container dashboard" id="dashboard-container" style="display:none;">
+    <h2>Dashboard</h2>
+    <div class="filter">
+        <label for="language-filter">Filter by Programming Language:</label>
+        <select id="language-filter" onchange="filterExercises()">
+            <option value="all">All</option>
+            <option value="C">C</option>
+            <option value="Python">Python</option>
+            <option value="Java">Java</option>
+        </select>
+    </div>
+    <input type="search" id="search-bar" placeholder="Search exercises..." oninput="filterExercises()">
+
+    <div id="exercise-list">
+        <div class="exercise" data-language="C" onclick="selectExercise('C Basics', 'Write a simple C program to display Hello World.', 'C', 30)">
+            <h4>Exercise 1: C Basics</h4>
+            <p>Difficulty: Easy | Time Limit: 30 mins | Status: Not Started</p>
+        </div>
+        <div class="exercise" data-language="Python" onclick="selectExercise('Python Loops', 'Implement loops in Python to solve a problem.', 'Python', 45)">
+            <h4>Exercise 2: Python Loops</h4>
+            <p>Difficulty: Medium | Time Limit: 45 mins | Status: In Progress</p>
+        </div>
+        <div class="exercise" data-language="Java" onclick="selectExercise('Java OOP Concepts', 'Understand OOP concepts in Java.', 'Java', 60)">
+            <h4>Exercise 3: Java OOP Concepts</h4>
+            <p>Difficulty: Hard | Time Limit: 60 mins | Status: Completed</p>
+        </div>
+    </div>
+
+    <!-- Button to view submission history -->
+    <button onclick="toggleSubmissions()">Xem Lịch Làm Bài</button>
+
+    <div class="submission-history" id="submission-history">
+        <h4>Lịch Sử Làm Bài</h4>
+        <div id="history-content"></div>
+    </div>
+</div>
+
+<div class="container coding-environment" id="coding-environment" style="display:none;">
+    <h2 id="exercise-title"></h2>
+    <p id="exercise-description"></p>
+    
+    <div class="timer" id="timer">Time left: <span id="time-left"></span></div>
+    
+    <button onclick="returnToDashboard()">Back</button>
+
+    <label for="language-switcher">Select Language:</label>
+    <select id="language-switcher" onchange="switchLanguage()">
+        <option value="C">C</option>
+        <option value="Python">Python</option>
+        <option value="Java">Java</option>
+    </select>
+
+    <div class="editor" contenteditable="true" id="code-editor"></div>
+
+    <button onclick="runCode()">Run Code</button>
+    <button onclick="clearCode()">Clear Code</button>
+    <button onclick="submitCode()">Submit</button>
+
+    <div class="feedback" id="submission-feedback">
+        <h4>Submission Results</h4>
+        <p>Status: <span id="submission-status"></span></p>
+        <p>Output: <span id="submission-output"></span></p>
+        <p>Score: <span id="submission-score"></span></p>
+        <button onclick="tryAgain()">Try Again</button>
+    </div>
+
+    <button class="hint-button" onclick="giveHint()">Get a Hint</button>
+</div>
+
+<script>
+    let selectedLanguage = 'C';
+    let hintCount = 3; // Limit hints
+    let timerInterval;
+    let timeRemaining;
+
+    function login() {
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('dashboard-container').style.display = 'block';
+    }
+
+    function filterExercises() {
+        const filter = document.getElementById('language-filter').value;
+        const searchQuery = document.getElementById('search-bar').value.toLowerCase();
+        const exercises = document.querySelectorAll('.exercise');
+
+        exercises.forEach(exercise => {
+            const language = exercise.getAttribute('data-language');
+            const title = exercise.querySelector('h4').textContent.toLowerCase();
+
+            if ((filter === 'all' || language === filter) && title.includes(searchQuery)) {
+                exercise.style.display = 'block';
+            } else {
+                exercise.style.display = 'none';
+            }
+        });
+    }
+
+    function selectExercise(title, description, language, timeLimit) {
+        document.getElementById('exercise-title').textContent = title;
+        document.getElementById('exercise-description').textContent = description;
+        selectedLanguage = language;
+        timeRemaining = timeLimit * 60; // Convert minutes to seconds
+        
+        document.getElementById('coding-environment').style.display = 'block';
+        document.getElementById('dashboard-container').style.display = 'none';
+        document.getElementById('code-editor').textContent = getTemplate(language);
+        
+        startTimer();
+    }
+
+    function getTemplate(language) {
+        switch (language) {
+            case 'C':
+                return '#include <stdio.h>\n\nint main() {\n    // Write your code here\n    return 0;\n}';
+            case 'Python':
+                return 'def main():\n    # Write your code here\n\nif __name__ == "__main__":\n    main()';
+            case 'Java':
+                return 'public class Main {\n    public static void main(String[] args) {\n        // Write your code here\n    }\n}';
+            default:
+                return '';
+        }
+    }
+
+    function switchLanguage() {
+        selectedLanguage = document.getElementById('language-switcher').value;
+        document.getElementById('code-editor').textContent = getTemplate(selectedLanguage);
+    }
+
+    function startTimer() {
+        const timerDisplay = document.getElementById('time-left');
+        timerDisplay.textContent = formatTime(timeRemaining);
+
+        timerInterval = setInterval(() => {
+            if (timeRemaining > 0) {
+                timeRemaining--;
+                timerDisplay.textContent = formatTime(timeRemaining);
+            } else {
+                clearInterval(timerInterval);
+                alert("Time's up! Submitting your code.");
+                submitCode();
+            }
+        }, 1000);
+    }
+
+    function formatTime(seconds) {
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${minutes}:${secs < 10 ? '0' + secs : secs}`;
+    }
+
+    function runCode() {
+        const code = document.getElementById('code-editor').textContent;
+        // Simulate running the code
+        const simulatedOutput = "Simulated Output"; // Replace with actual code execution results
+        document.getElementById('submission-status').textContent = 'Success';
+        document.getElementById('submission-output').textContent = simulatedOutput;
+        document.getElementById('submission-feedback').style.display = 'block';
+    }
+
+    function clearCode() {
+        document.getElementById('code-editor').textContent = '';
+    }
+
+    function submitCode() {
+        const code = document.getElementById('code-editor').textContent;
+        const score = calculateScore(code, selectedLanguage);
+        const submission = {
+            title: document.getElementById('exercise-title').textContent,
+            code: code,
+            status: document.getElementById('submission-status').textContent,
+            output: document.getElementById('submission-output').textContent,
+            score: score,
+            timestamp: new Date().toISOString()
+        };
+        localStorage.setItem(`submission-${Date.now()}`, JSON.stringify(submission));
+
+        document.getElementById('submission-score').textContent = `${score}/100`;
+        alert('Code submitted for grading! Your submission has been saved.');
+        returnToDashboard();
+    }
+
+    function toggleSubmissions() {
+        const historyContainer = document.getElementById('submission-history');
+        const historyContent = document.getElementById('history-content');
+        if (historyContainer.style.display === 'none') {
+            historyContainer.style.display = 'block';
+            historyContent.innerHTML = ''; // Clear previous content
+            loadSubmissions();
+        } else {
+            historyContainer.style.display = 'none';
+        }
+    }
+
+    function loadSubmissions() {
+        const historyContent = document.getElementById('history-content');
+        historyContent.innerHTML = ''; // Clear previous content
+
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith('submission-')) {
+                const submission = JSON.parse(localStorage.getItem(key));
+                historyContent.innerHTML += `
+                    <p><strong>Title:</strong> ${submission.title}</p>
+                    <p><strong>Status:</strong> ${submission.status}</p>
+                    <p><strong>Score:</strong> ${submission.score}</p>
+                    <p><strong>Output:</strong> ${submission.output}</p>
+                    <p><strong>Submitted At:</strong> ${new Date(submission.timestamp).toLocaleString()}</p>
+                    <hr>
+                `;
+            }
+        }
+    }
+
+    function calculateScore(code, language) {
+        let errors = 0;
+
+        // Simulated error checking
+        if (language === 'C') {
+            if (!code.includes('printf') || !code.includes('return 0;')) {
+                errors += 30; // Missing printf or return
+            }
+            if (code.split(';').length - 1 < 2) {
+                errors += 20; // Not enough statements
+            }
+        } else if (language === 'Python') {
+            if (!code.includes('print')) {
+                errors += 30; // Missing print statement
+            }
+            if (code.split('\n').length < 3) {
+                errors += 20; // Not enough lines
+            }
+        } else if (language === 'Java') {
+            if (!code.includes('System.out.println')) {
+                errors += 30; // Missing print statement
+            }
+            if (code.split(';').length - 1 < 2) {
+                errors += 20; // Not enough statements
+            }
+        }
+
+        return Math.max(0, 100 - errors); // Score cannot be negative
+    }
+
+    function tryAgain() {
+        document.getElementById('submission-feedback').style.display = 'none';
+        document.getElementById('coding-environment').style.display = 'block';
+    }
+
+    function returnToDashboard() {
+        clearInterval(timerInterval);
+        document.getElementById('coding-environment').style.display = 'none';
+        document.getElementById('dashboard-container').style.display = 'block';
+    }
+
+    function giveHint() {
+        if (hintCount > 0) {
+            alert("Here is a hint for you!"); // Replace with actual hint logic
+            hintCount--;
+        } else {
+            alert("No more hints available.");
+        }
+    }
+</script>
+
+</body>
+</html>

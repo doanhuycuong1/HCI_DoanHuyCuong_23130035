@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        .container {
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
+        }
+
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+            margin-bottom: 20px;
+        }
+
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 10px 15px;
+            transition: 0.3s;
+        }
+
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        .header {
+            background-color: #1e6af8;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-pic {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #1e6af8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 20px;
+            border: 2px solid #1e6af8;
+        }
+
+        .highlighted-section {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .weekly-streak {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 20px;
+            margin-bottom: 20px;
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            width: 100%;
+        }
+
+        .weekly-streak-item {
+            text-align: center;
+        }
+
+        .see-all-activities {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.9em;
+            text-decoration: underline;
+            cursor: pointer;
+            color: blue;
+        }
+
+        .pick-up-and-learning {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .pick-up h1 {
+            margin-bottom: 10px;
+        }
+
+        .course-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-gap: 20px;
+            margin-top: 20px;
+        }
+
+        .course-card {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            text-align: center;
+        }
+
+        .course-card iframe {
+            width: 100%;
+            height: 200px;
+        }
+
+        .recommendations-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 20px;
+            margin-top: 20px;
+        }
+
+        .recommendation-card {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .recommendation-card img {
+            width: 100%; /* Thay đổi kích thước hình ảnh thành chữ nhật */
+            height: auto; /* Giữ tỷ lệ khung hình */
+            object-fit: cover; /* Đảm bảo ảnh được cắt gọn */
+            margin-bottom: 10px;
+        }
+
+        .personalize-section {
+            background-color: #f2f2f2;
+            padding: 40px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+
+        .my-learning {
+            cursor: pointer;
+            text-decoration: underline;
+            color: blue;
+        }
+
+        .close-button {
+            background-color: transparent;
+            border: none;
+            color: red;
+            font-size: 20px;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'tab1')">Business Operations</button>
+        <button class="tablinks" onclick="openTab(event, 'tab2')">Cloud Computing</button>
+        <button class="tablinks" onclick="openTab(event, 'tab3')">Cybersecurity</button>
+        <button class="tablinks" onclick="openTab(event, 'tab4')">Data Science</button>
+        <button class="tablinks" onclick="openTab(event, 'tab5')">Development</button>
+        <button class="tablinks" onclick="openTab(event, 'tab6')">IT Operations</button>
+        <button class="tablinks" onclick="openTab(event, 'tab7')">Language Learning</button>
+        <button class="tablinks" onclick="openTab(event, 'tab8')">Leadership & Management</button>
+        <button class="tablinks" onclick="openTab(event, 'tab9')">Marketing</button>
+    </div>
+
+    <header class="header">
+        <div class="profile-pic">Đ</div>
+        <div>
+            <h1>Welcome back, Đoàn Huy Cương</h1>
+            <p>Add your occupation and interests</p>
+        </div>
+    </header>
+
+    <div class="highlighted-section">
+        <div class="weekly-streak">
+            <div class="weekly-streak-item">
+                <h2>Weekly streak</h2>
+                <p>One ring down, one to go. Keep it up!</p>
+            </div>
+            <div class="weekly-streak-item">
+                <h3>2 weeks</h3>
+                <h3><span style="font-size: 0.8em; font-weight: bold;">Current streak</span></h3>
+            </div>
+            <div class="weekly-streak-item">
+                <p>Oct 13 - 19</p>
+            </div>
+            <div class="see-all-activities" onclick="seeAllActivities()">See All Activities</div>
+        </div>
+    </div>
+
+    <div class="pick-up-and-learning">
+        <div class="pick-up">
+            <h1>Pick up where you left off</h1>
+            <button class="active" onclick="toggleContent('courses')">Courses</button>
+            <button onclick="toggleContent('learningPaths')">Learning Paths</button>
+            <button onclick="toggleContent('certification')">Certification Preparation</button>
+        </div>
+        <div class="my-learning" onclick="seeMyLearning()">
+            My Learning
+        </div>
+    </div>
+
+    <main>
+        <div id="courses" class="tabcontent" style="display: block;">
+            <h3>Courses</h3>
+            <div class="course-container">
+                <div class="course-card">
+                    <iframe src="https://www.youtube.com/embed/R6plN3FvzFY" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="course-card">
+                    <iframe src="https://www.youtube.com/embed/1JuYQgpbrW0" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                </div>
+                <div class="course-card">
+                    <iframe src="https://www.youtube.com/embed/lwsS-ikKnPs" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="learningPaths" class="tabcontent">
+            <h3>Learning Paths</h3>
+            <p>Here are your learning paths.</p>
+        </div>
+
+        <div id="certification" class="tabcontent">
+            <h3>Certification Preparation</h3>
+            <p>Here is your certification preparation content.</p>
+        </div>
+    </main>
+
+    <div class="container">
+        <div class="header-container" style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Based on your certification interests, we recommend</h1>
+            <div class="edit-certification-interests">
+                <a href="#" onclick="editCertificationInterests()">Edit certification interests</a>
+            </div>
+        </div>
+    
+        <div class="recommendations-section">
+            <div class="recommendation-card">
+                <img src="https://funix.edu.vn/wp-content/uploads/2023/10/H%C6%B0%E1%BB%9Bng-d%E1%BA%ABn-c%C3%A1ch-h%E1%BB%8Dc-l%E1%BA%ADp-tr%C3%ACnh-Java-c%C4%83n-b%E1%BA%A3n-cho-ng%C6%B0%E1%BB%9Di-m%E1%BB%9Bi-1.jpg" alt="Java Oracle Certification">
+                <h3>Oracle Certified Associate Java Programmer (OCAJP) 1Z0-808</h3>
+                <p>Andreas Van Deventer, Masoud Kamali</p>
+                <div class="rating">4.6 ★★★★☆ (2,213)</div>
+            </div>
+            <div class="recommendation-card">
+                <img src="https://www.dutchtrain.nl/wp-content/uploads/2019/09/Logo-Java-SE-8-Programmer-1-500x292.gif" alt="Java SE 8 Programmer Certification">
+                <h3>Java SE 8 Programmer: 1Z0-808 Exam</h3>
+                <p>Tim Buchalka's Learn Programming Academy, Goran Lochert</p>
+                <div class="rating">4.6 ★★★★☆ (5,906)</div>
+            </div>
+            <div class="recommendation-card">
+                <img src="https://media.geeksforgeeks.org/wp-content/cdn-uploads/20220808125200/How-to-Become-Oracle-Certified-Java-Programmer.jpg">
+                <h3>Complete Java SE 8 Developer Bootcamp - OCA Prep Included</h3>
+                <p>Intertech Training, Jeff Jensen</p>
+                <div class="rating">4.6 ★★★★☆ (9,726)</div>
+            </div>
+            <div class="recommendation-card">
+                <img src="https://blogger.googleusercontent.com/img/a/AVvXsEgpLn1FJC1pfP9F8CjqROXdYO8iBwQk0STk7eYrW6XFh-OM2txogwgEWaL2sEbecgoF1BSf2P5DatRM_bZSE6OqcanNLjukfIwJyAH6XiC7v0oQiM2fL_M5I-NXU-doPuJmRmtJVFYMdzJP8bJT4yJwuDn6E-fZFZtOL5aNGyoNyMkDMVhUmjG1ic-k=s16000">
+                <h3>Spring Professional Certification Exam Tutorial - Module 02</h3>
+                <p>Dominik Cebula</p>
+                <div class="rating">4.6 ★★★★☆ (1,121)</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="personalize-section" id="personalizeSection">
+        <button class="close-button" onclick="closePersonalizeSection()">X</button>
+        <h2>Personalize your learning experience</h2>
+        <p>Add your occupation and interests to get better content recommendations.</p>
+        <button onclick="editCertificationInterests()">Add occupation and interests</button>
+    </div>
+
+    <footer>
+        <p>© 2024 My Dashboard. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function toggleContent(contentId) {
+            var content = document.getElementById(contentId);
+            var isVisible = content.style.display === "block";
+            var allContents = document.getElementsByClassName('tabcontent');
+
+            for (var i = 0; i < allContents.length; i++) {
+                allContents[i].style.display = 'none';
+            }
+
+            if (!isVisible) {
+                content.style.display = "block";
+            }
+        }
+
+        function seeAllActivities() {
+            alert("Redirecting to the 'See All Activities' page...");
+        }
+
+        function editCertificationInterests() {
+            alert("Redirecting to the certification interests editor...");
+        }
+
+        function closePersonalizeSection() {
+            document.getElementById('personalizeSection').style.display = 'none';
+        }
+
+        function seeMyLearning() {
+            alert("Redirecting to My Learning page...");
+        }
+    </script>
+
+</body>
+
+</html>

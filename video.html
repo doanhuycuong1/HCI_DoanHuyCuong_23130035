@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Layout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            display: flex;
+            height: 80vh; /* Adjust the height of the entire container */
+            margin: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+        }
+
+        .video-section {
+            flex: 2; /* 2/3 of the container */
+            position: relative;
+            height: calc(66.67vh); /* Setting height to 1.2 times its width */
+        }
+
+        .video-section iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-title {
+            font-size: 1.5em;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .comments-section {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-top: 1px solid #ccc;
+        }
+
+        .comments-section textarea {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .comments-section button {
+            background-color: #1e6af8;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .comments-section button:hover {
+            background-color: #0056b3;
+        }
+
+        .recommendations-section {
+            flex: 1; /* 1/3 of the container */
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f9f9f9;
+            border-left: 1px solid #ccc;
+        }
+
+        .recommendation-card {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: flex;
+            align-items: center; /* Center align items vertically */
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        .recommendation-thumbnail {
+            width: 100px; /* Fixed width for the thumbnail */
+            height: 75px; /* Fixed height for the thumbnail */
+            margin-right: 10px; /* Space between image and text */
+            border-radius: 4px; /* Add border-radius for better aesthetics */
+        }
+
+        .recommendation-card h3 {
+            margin: 0;
+            font-size: 1em;
+        }
+
+        .recommendation-card p {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="video-section">
+            <iframe id="mainVideo" src="https://www.youtube.com/embed/zwsPND378OQ" title="YouTube video player" allowfullscreen></iframe>
+            <div class="video-title">HTML CSS là gì? | Ví dụ trực quan về HTML & CSS</div>
+            <div class="comments-section">
+                <textarea placeholder="Add a comment..."></textarea>
+                <button>Submit Comment</button>
+            </div>
+        </div>
+        <div class="recommendations-section">
+            <h2>Recommended Videos</h2>
+            <div class="recommendation-card" onclick="changeVideo('https://www.youtube.com/embed/7BJiPyN4zZ0', 'Làm quen với Dev tools | Giới thiệu bộ công cụ Dev tools trên trình duyệt.')">
+                <img class="recommendation-thumbnail" src="https://img.youtube.com/vi/7BJiPyN4zZ0/0.jpg" alt="Video Thumbnail">
+                <div>
+                    <p>Làm quen với Dev tools | Giới thiệu bộ công cụ Dev tools trên trình duyệt.</p>
+                </div>
+            </div>
+            <div class="recommendation-card" onclick="changeVideo('https://www.youtube.com/embed/ZotVkQDC6mU', 'Cài đặt môi trường, công cụ cần thiết để bắt đầu học HTML CSS')">
+                <img class="recommendation-thumbnail" src="https://img.youtube.com/vi/ZotVkQDC6mU/0.jpg" alt="Video Thumbnail">
+                <div>
+                    <p>Cài đặt môi trường, công cụ cần thiết để bắt đầu học HTML CSS</p>
+                </div>
+            </div>
+            <div class="recommendation-card" onclick="changeVideo('https://www.youtube.com/embed/LYnrFSGLCl8', 'Cấu trúc file HTML | Khởi tạo folder dự án trong HTML')">
+                <img class="recommendation-thumbnail" src="https://img.youtube.com/vi/LYnrFSGLCl8/0.jpg" alt="Video Thumbnail">
+                <div>
+                    <p>Cấu trúc file HTML | Khởi tạo folder dự án trong HTML</p>
+                </div>
+            </div>
+            <div class="recommendation-card" onclick="changeVideo('https://www.youtube.com/embed/JG0pdfdKjgQ', 'Comments trong HTML | Cú pháp mở và đóng Comments')">
+                <img class="recommendation-thumbnail" src="https://img.youtube.com/vi/JG0pdfdKjgQ/0.jpg" alt="Video Thumbnail">
+                <div>
+                    <p>Comments trong HTML | Cú pháp mở và đóng Comments</p>
+                </div>
+            </div>
+            <div class="recommendation-card" onclick="changeVideo('https://www.youtube.com/embed/AzmdwZ6e_aM', 'Những thẻ HTML thông dụng')">
+                <img class="recommendation-thumbnail" src="https://img.youtube.com/vi/AzmdwZ6e_aM/0.jpg" alt="Video Thumbnail">
+                <div>
+                    <p>Những thẻ HTML thông dụng</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeVideo(videoUrl, title) {
+            const mainVideo = document.getElementById("mainVideo");
+            mainVideo.src = videoUrl; // Change the source of the main video iframe
+            document.querySelector(".video-title").innerText = title; // Update the title
+        }
+    </script>
+
+</body>
+
+</html>

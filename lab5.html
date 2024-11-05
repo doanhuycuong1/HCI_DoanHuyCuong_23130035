@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Learning</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .course-card, .path-card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      height: 100%; /* Ensure cards have equal height */
+    }
+    .course-img, .path-img {
+      height: 100px; /* Fixed height for the image container */
+      width: 100%;
+      background-color: #f8f9fa;
+      overflow: hidden; /* Hide overflow */
+    }
+    .course-img img {
+      height: 100%; /* Full height */
+      width: 100%; /* Full width */
+      object-fit: cover; /* Maintain aspect ratio */
+    }
+    .course-title, .path-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .course-rating {
+      color: #ffc107;
+    }
+    .progress-bar-purple {
+      background-color: #6f42c1;
+    }
+    .reset-button {
+      background: none;
+      border: none;
+      color: #6c757d;
+      cursor: pointer;
+      padding: 0;
+      font-size: 0.9rem;
+    }
+    .reset-button:hover {
+      color: #5a6268;
+    }
+    .search-container {
+      display: flex;
+      align-items: center;
+    }
+    .search-icon {
+      margin-left: -35px;
+      cursor: pointer;
+      color: #6c757d;
+    }
+    .completion-info {
+      font-size: 0.9rem; /* Smaller font size for completion info */
+      margin-bottom: 5px; /* Spacing below completion info */
+    }
+    .star-rating {
+      font-size: 1.25rem; /* Adjust star size */
+    }
+    .star-rating .filled {
+      color: #ffc107; /* Filled star color (yellow) */
+    }
+    .star-rating .half {
+      color: #ffc107; /* Half star color (yellow) */
+      position: relative;
+    }
+    .star-rating .half::before {
+      content: "★"; /* Full star */
+      color: #ddd; /* Unfilled star color (light gray) */
+      position: absolute;
+      left: 0;
+      width: 50%; /* Show half of the star */
+      overflow: hidden;
+    }
+    .star-rating .empty {
+      color: #ddd; /* Unfilled star color (light gray) */
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5">
+  <!-- Header Section -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>My Learning</h1>
+    <p><strong>87hr 36min watched</strong> | <a href="#">View all activity</a></p>
+  </div>
+
+  <!-- Navigation Tabs -->
+  <ul class="nav nav-tabs mb-4">
+    <li class="nav-item"><a class="nav-link active" href="#" onclick="showSection('all-courses')">All Courses</a></li>
+    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('learning-paths')">Learning Paths</a></li>
+    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('certifications')">Certifications</a></li>
+    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('archived')">Archived</a></li>
+    <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('learning-tools')">Learning Tools</a></li>
+  </ul>
+
+  <!-- All Courses Section -->
+  <div id="all-courses" class="section">
+    <div>
+      <h1 class="btn btn-light">Sort by</h1>
+      <h1 class="btn btn-light">Filter by</h1>
+    </div>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div>
+        <select id="role" required>
+          <option value="">Recently Accessed</option>
+          <option value="Admin">Admin</option>
+          <option value="User">User</option>
+        </select>
+        <select id="role" required>
+          <option value="">Categories</option>
+          <option value="Admin">Admin</option>
+          <option value="User">User</option>
+        </select>
+        <select id="role" required>
+          <option value="">Progress</option>
+          <option value="Admin">Admin</option>
+          <option value="User">User</option>
+        </select>
+        <select id="role" required>
+          <option value="">Instructor</option>
+          <option value="Admin">Admin</option>
+          <option value="User">User</option>
+        </select>
+        <button type="reset" class="reset-button">Reset</button>
+      </div>
+      <div class="search-container">
+        <input type="text" class="form-control" placeholder="Search my courses">
+        <span class="search-icon"><i class="fas fa-search"></i></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Course Card 1 -->
+      <div class="col-md-4">
+        <div class="course-card">
+          <div class="course-img">
+            <img src="https://isocert.org.vn/uploads/Phuong-tintuc/isms-la-gi-1.jpg" alt="FPT_ISMS Training" class="img-fluid">
+          </div>
+          <h5 class="course-title mt-3">FPT_ISMS Refresh Training S2 2024 (Vietnamese)</h5>
+          <div class="completion-info">100% complete</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-purple" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="course-rating">
+            <span class="star-rating">
+              <span class="filled">★</span>
+              <span class="filled">★</span>
+              <span class="filled">★</span>
+              <span class="filled">★</span>
+              <span class="filled">★</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Course Card 2 -->
+      <div class="col-md-4">
+        <div class="course-card">
+          <div class="course-img">
+            <img src="https://statics.cdn.200lab.io/2021/11/102820095020.jpg" alt="Data Analysis Basics" class="img-fluid">
+          </div>
+          <h5 class="course-title mt-3">Data Analysis Basics</h5>
+          <div class="completion-info">70% complete</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-purple" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="course-rating">
+            <span class="star-rating">
+              <span class="filled">★</span> 
+              <span class="filled">★</span>
+              <span class="filled">★</span> 
+              <span class="half">★</span>   
+              <span class="empty">★</span>  
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Course Card 3 -->
+      <div class="col-md-4">
+        <div class="course-card">
+          <div class="course-img">
+            <img src="https://a.tcnn.vn//Images/images/z3836258914416_aa817535bd16ffea995291b10ade1c59.jpg" alt="Leadership Essentials" class="img-fluid">
+          </div>
+          <h5 class="course-title mt-3">Leadership Essentials</h5>
+          <div class="completion-info">50% complete</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-purple" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="course-rating">
+            <span class="star-rating">
+              <span class="filled">★</span>
+              <span class="filled">★</span>
+              <span class="half">★</span>
+              <span class="empty">★</span>
+              <span class="empty">★</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Course Card 4 -->
+      <div class="col-md-4">
+        <div class="course-card">
+          <div class="course-img">
+            <img src="https://media.licdn.com/dms/image/v2/D4D12AQGEWtp-W6RVkA/article-cover_image-shrink_720_1280/article-cover_image-shrink_720_1280/0/1656944007892?e=2147483647&v=beta&t=W2st2GG_a2pcmeWShDUndKuXcxF-nqjG4A4wvYX1HUw" alt="Introduction to Cybersecurity" class="img-fluid">
+          </div>
+          <h5 class="course-title mt-3">Introduction to Cybersecurity</h5>
+          <div class="completion-info">30% complete</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-purple" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="course-rating">
+            <span class="star-rating">
+              <span class="filled">★</span>
+              <span class="half">★</span>
+              <span class="empty">★</span>
+              <span class="empty">★</span>
+              <span class="empty">★</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- Course Card 5 -->
+      <div class="col-md-4">
+        <div class="course-card">
+          <div class="course-img">
+            <img src="https://tenten.vn/tin-tuc/wp-content/uploads/2023/08/1cG6U1qstYDijh9bPL42e-Q.jpg" alt="Introduction to Machine Learning" class="img-fluid">
+          </div>
+          <h5 class="course-title mt-3">Introduction to Machine Learning</h5>
+          <div class="completion-info">10% complete</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-purple" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="course-rating">
+            <span class="star-rating">
+              <span class="half">★</span>
+              <span class="empty">★</span>
+              <span class="empty">★</span>
+              <span class="empty">★</span>
+              <span class="empty">★</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Learning Paths Section -->
+  <div id="learning-paths" class="section" style="display: none;">
+    <h2>Learning Paths</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="path-card">
+          <div class="d-flex align-items-center">
+            <img src="https://cdn-copck.nitrocdn.com/WwybsgZzWtFojdWowVAajDJCKuMAXRVm/assets/images/optimized/rev-327d879/rubicmarketing.com/wp-content/uploads/2022/07/y-nghia-logo-fpt-lan-3-768x512.jpg" alt="FPT Logo" class="mr-2" style="height: 40px;">
+            <h5 class="path-title mb-0">Path Learning</h5>
+          </div>
+          <div class="completion-info">100% complete</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-purple" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="path-card">
+          <div class="d-flex align-items-center">
+            <img src="https://cdn-copck.nitrocdn.com/WwybsgZzWtFojdWowVAajDJCKuMAXRVm/assets/images/optimized/rev-327d879/rubicmarketing.com/wp-content/uploads/2022/07/y-nghia-logo-fpt-lan-3-768x512.jpg" alt="FPT Logo" class="mr-2" style="height: 40px;">
+            <h5 class="path-title mb-0">Advanced Leadership Program</h5>
+          </div>
+          <div class="completion-info">75% complete</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-purple" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="path-card">
+          <div class="d-flex align-items-center">
+            <img src="https://cdn-copck.nitrocdn.com/WwybsgZzWtFojdWowVAajDJCKuMAXRVm/assets/images/optimized/rev-327d879/rubicmarketing.com/wp-content/uploads/2022/07/y-nghia-logo-fpt-lan-3-768x512.jpg" alt="FPT Logo" class="mr-2" style="height: 40px;">
+            <h5 class="path-title mb-0">Project Management Essentials</h5>
+          </div>
+          <div class="completion-info">40% complete</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-purple" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="path-card">
+          <div class="d-flex align-items-center">
+            <img src="https://cdn-copck.nitrocdn.com/WwybsgZzWtFojdWowVAajDJCKuMAXRVm/assets/images/optimized/rev-327d879/rubicmarketing.com/wp-content/uploads/2022/07/y-nghia-logo-fpt-lan-3-768x512.jpg" alt="FPT Logo" class="mr-2" style="height: 40px;">
+            <h5 class="path-title mb-0">Data Science Foundations</h5>
+          </div>
+          <div class="completion-info">20% complete</div>
+          <div class="progress">
+            <div class="progress-bar progress-bar-purple" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Certifications Section -->
+  <div id="certifications" class="section" style="display: none;">
+    <h2>Certifications</h2>
+    <p>Content for Certifications goes here.</p>
+  </div>
+
+  <!-- Archived Section -->
+  <div id="archived" class="section" style="display: none;">
+    <h2>Archived</h2>
+    <p>Content for Archived goes here.</p>
+  </div>
+
+  <!-- Learning Tools Section -->
+  <div id="learning-tools" class="section" style="display: none;">
+    <h2>Learning Tools</h2>
+    <p>Content for Learning Tools goes here.</p>
+  </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome for search icon -->
+<script>
+  function showSection(sectionId) {
+    // Hide all sections
+    document.querySelectorAll('.section').forEach(section => section.style.display = 'none');
+    
+    // Show the selected section
+    document.getElementById(sectionId).style.display = 'block';
+    
+    // Update the active state of the tabs
+    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+    document.querySelector(`.nav-link[onclick="showSection('${sectionId}')"]`).classList.add('active');
+  }
+</script>
+
+</body>
+</html>

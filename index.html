@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Web Của Tôi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-image: url('https://www.hostinger.vn/huong-dan/wp-content/uploads/sites/10/2017/04/cach-tao-trang-web-768x576.jpg');
+            background-size: cover; 
+            background-position: center; 
+            background-repeat: no-repeat; 
+            color: black;
+        }
+        .tabs { display: flex; cursor: pointer; margin-bottom: 20px; }
+        .tab { padding: 10px 20px; border: 1px solid #ccc; border-bottom: none; background-color: #1e8ef7; margin-right: 5px; }
+        .tab.active { background-color: rgb(54, 113, 241); font-weight: bold; border-bottom: 2px solid #007bff; }
+        .content { border: 1px solid #ccc; padding: 20px; display: none; background-color: rgba(255, 255, 255, 0.8); }
+        .content.active { display: block; }
+        .social-icons { margin-top: 20px; }
+        .social-icon { margin-right: 10px; text-decoration: none; color: black; font-size: 20px; }
+
+      
+        .hci-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5em;
+            font-weight: bold; 
+            color: #003366;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); 
+            display: inline; 
+        }
+
+        .hci-subtitle {
+            font-family: 'Pacifico', cursive; 
+            font-size: 0.5em; 
+            font-weight: normal; 
+        }
+
+        @media (max-width: 600px) { body { padding: 10px; } }
+    </style>
+</head>
+<body>
+    <h1>Trang Web Của Tôi</h1>
+    <div class="tabs">
+        <div class="tab active" onclick="openTab(event, 'home')">Home</div>
+        <div class="tab" onclick="openTab(event, 'about')">About</div>
+        <div class="tab" onclick="openTab(event, 'lab')">Lab</div>
+    </div>
+
+    <div id="home" class="content active">
+        <h2 class="hci-title">HUY CƯƠNG <span class="hci-subtitle">(HCI)</span></h2>
+        <p>Welcome to Home</p>
+
+        <!-- New content added here -->
+        <h2>Human Computer Interaction</h2>
+        <p>Don't have an account?</p>
+        <p>Register to access all the features of our services.</p>
+        <p>Manage your business in one place. It's free</p>
+        
+    </div>
+
+    <div id="about" class="content">
+        <h2>About</h2>
+        <p><a href="https://f2-vn.joboko.com/20249/28/doan-huy-cuong_3006605_bbb757a93584bb95_3006605.pdf?s=1727540503&_gl=1*1k55qqh*_gcl_aw*R0NMLjE3Mjc1Mzk4ODEuQ2p3S0NBancwdDYzQmhBVUVpd0E1eFA1NGZzTUc5NGVOd0d3ODVRTkJLMmoxNnF6RmNWc2xISFNpTmtjeGRVSlhFb183RjFkZm9FWHFob0NVNkVRQXZEX0J3RQ..*_gcl_au*MTY2NDI0NzU2NS4xNzI3NTM5ODMy*_ga*MTMxMDI5NDQ5Ni4xNzI3NTM5ODMy*_ga_4J9J0KMYQD*MTcyNzUzOTgzMi4xLjEuMTcyNzU0MDc0Ni4zOS4wLjA" target="_blank">Click here to view my CV</a></p>
+    </div>
+
+    <div id="lab" class="content">
+        <h2>Lab</h2>
+        <p>Welcome to Lab</p>
+        <button id="lab1">Lab 1</button>
+        <button id="lab2">Lab 2</button>
+        <button id="lab3">Lab 3</button>
+        <button id="lab4">Lab 4</button>
+        <button id="lab5">Lab 5</button>
+        <button id="lab6">Lab 6</button>
+        <button id="labvideo">Lab video</button>
+    </div>    
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('lab1').addEventListener('click', function() {
+                window.location.href = 'lab1.html';
+            });
+            document.getElementById('lab2').addEventListener('click', function() {
+                window.location.href = 'lab2.html';
+            });
+            document.getElementById('lab3').addEventListener('click', function() {
+                window.location.href = 'lab3.html';
+            });
+            document.getElementById('lab4').addEventListener('click', function() {
+                window.location.href = 'lab4.html';
+            });
+            document.getElementById('lab5').addEventListener('click', function() {
+                window.location.href = 'lab5.html';
+            });
+            document.getElementById('lab6').addEventListener('click', function() {
+                window.location.href = 'lab6.html';
+            });
+            document.getElementById('labvideo').addEventListener('click', function() {
+                window.location.href = 'video.html';
+            });
+        });
+
+        function openTab(event, tabName) {
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+    </script>
+</body>
+</html>
