@@ -40,6 +40,13 @@
       color: #333;
       text-align: center;
     }
+    .card .highlight {
+      color: white; /* White text color */
+      background-color: black; /* Black background */
+      padding: 2px 6px;
+      border: 1px solid black;
+      border-radius: 4px;
+    }
     .card p {
       margin: 10px 0 0 0;
       color: #666;
@@ -76,7 +83,7 @@
       background-color: white;
       padding: 30px;
       border-radius: 8px;
-      max-width: 600px;
+      max-width: 800px;
       width: 90%;
       text-align: center;
       margin: 20px;
@@ -86,31 +93,6 @@
       padding: 10px;
       margin: 10px 0;
       box-sizing: border-box;
-    }
-    /* Panel Style */
-    .panel {
-      background-color: #f0f0f0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 20px;
-      margin: 20px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .panel label {
-      color: #333;
-      font-weight: bold;
-      width: 120px; /* Fixed width for the label */
-    }
-    .panel .input-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .panel select, .panel input[type="text"] {
-      flex-grow: 1;
-      padding: 8px;
     }
     .modal-content button {
       width: 100%;
@@ -122,6 +104,39 @@
       font-size: 16px;
       cursor: pointer;
     }
+    /* Panel for layout */
+    .panel {
+      background-color: #f0f0f0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      display: flex;
+      flex-wrap: wrap; /* Allow the elements to wrap */
+      gap: 20px; /* Add space between elements */
+    }
+    .panel label {
+      color: #333;
+      font-weight: bold;
+      width: 150px; /* Fixed width for the label */
+      display: inline-block;
+    }
+    .panel .input-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%; /* Ensure the input group spans full width */
+    }
+    .panel select {
+      flex-shrink: 0; /* Prevent the select box from growing */
+      width: auto; /* Allow it to shrink to fit content */
+      padding: 8px;
+    }
+    .panel input[type="text"] {
+      flex-grow: 1; /* Allow the Short description to take the remaining space */
+      padding: 8px;
+      width: 100%; /* Ensure it takes remaining space */
+    }
   </style>
 </head>
 <body>
@@ -129,7 +144,7 @@
     <!-- JavaScript Mocha Card -->
     <div class="card">
       <img src="https://mochajs.org/images/mocha-logo.svg" alt="JavaScript Mocha">
-      <h3>JavaScript Mocha</h3>
+      <h3>JavaScript <span class="highlight">Mocha</span></h3>
       <p>Use the Mocha testing framework and create unit tests to grade solutions.</p>
       <div class="buttons">
         <button onclick="openForm()">Continue</button>
@@ -140,7 +155,7 @@
     <!-- TypeScript Mocha Card -->
     <div class="card">
       <img src="https://camo.githubusercontent.com/edb9efa251c06d3751313af35e917972bbba7818f7586923ae55ee74c95e27e6/68747470733a2f2f63646e2e69636f6e73636f75742e636f6d2f69636f6e2f667265652f706e672d3235362f747970657363726970742d333532313737342d323934353237322e706e67" alt="TypeScript Mocha">
-      <h3>TypeScript Mocha</h3>
+      <h3>TypeScript <span class="highlight">Mocha</span></h3>
       <p>Use the Mocha testing framework and create unit tests to grade solutions.</p>
       <div class="buttons">
         <button onclick="openForm()">Continue</button>
@@ -151,7 +166,7 @@
     <!-- Python pytest Card -->
     <div class="card">
       <img src="https://i.pinimg.com/originals/82/a2/18/82a2188c985ce75402ae44fc43fe7e5e.png" alt="Python pytest">
-      <h3>Python pytest</h3>
+      <h3>Python <span class="highlight">pytest</span></h3>
       <p>pytest is the most popular and fully-featured Python testing framework.</p>
       <div class="buttons">
         <button onclick="openForm()">Continue</button>
@@ -162,7 +177,7 @@
     <!-- PHP PHPUnit Card -->
     <div class="card">
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/PHP-logo.svg/711px-PHP-logo.svg.png" alt="PHP PHPUnit">
-      <h3>PHP PHPUnit</h3>
+      <h3>PHP <span class="highlight">PHPUnit</span></h3>
       <p>PHPUnit is a programmer-oriented testing framework for PHP.</p>
       <div class="buttons">
         <button onclick="openForm()">Continue</button>
@@ -173,7 +188,7 @@
     <!-- Java JUnit Card -->
     <div class="card">
       <img src="https://thietkelogo.mondial.vn/wp-content/uploads/2024/03/java-logo-vector.png" alt="Java JUnit">
-      <h3>Java JUnit</h3>
+      <h3>Java <span class="highlight">JUnit</span></h3>
       <p>JUnit is a popular unit-testing framework in the Java ecosystem.</p>
       <div class="buttons">
         <button onclick="openForm()">Continue</button>
@@ -184,7 +199,7 @@
     <!-- Kotlin JUnit Card -->
     <div class="card">
       <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Kotlin_Icon.svg" alt="Kotlin JUnit">
-      <h3>Kotlin JUnit</h3>
+      <h3>Kotlin <span class="highlight">JUnit</span></h3>
       <p>JUnit is a popular unit-testing framework in the Kotlin ecosystem.</p>
       <div class="buttons">
         <button onclick="openForm()">Continue</button>
@@ -198,8 +213,8 @@
     <div class="modal-content">
       <h2>New unit test custom challenge</h2>
       <input type="text" placeholder="Title" value="Demo">
-      <!-- Panel for Difficulty and Short Description -->
       <div class="panel">
+        <!-- Difficulty and Short Description side by side -->
         <div class="input-group">
           <label for="difficulty">Difficulty:</label>
           <select id="difficulty">
@@ -218,12 +233,9 @@
   </div>
 
   <script>
-    // Function to open the form modal
     function openForm() {
       document.getElementById("modalForm").style.display = "flex";
     }
-    
-    // Function to close the form modal
     function closeForm() {
       document.getElementById("modalForm").style.display = "none";
     }
