@@ -5,81 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Learning</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    .course-card, .path-card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 20px;
-      height: 100%; /* Ensure cards have equal height */
-    }
-    .course-img, .path-img {
-      height: 100px; /* Fixed height for the image container */
-      width: 100%;
-      background-color: #f8f9fa;
-      overflow: hidden; /* Hide overflow */
-    }
-    .course-img img {
-      height: 100%; /* Full height */
-      width: 100%; /* Full width */
-      object-fit: cover; /* Maintain aspect ratio */
-    }
-    .course-title, .path-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    .course-rating {
-      color: #ffc107;
-    }
-    .progress-bar-purple {
-      background-color: #6f42c1;
-    }
-    .reset-button {
-      background: none;
-      border: none;
-      color: #6c757d;
-      cursor: pointer;
-      padding: 0;
-      font-size: 0.9rem;
-    }
-    .reset-button:hover {
-      color: #5a6268;
-    }
-    .search-container {
-      display: flex;
-      align-items: center;
-    }
-    .search-icon {
-      margin-left: -35px;
-      cursor: pointer;
-      color: #6c757d;
-    }
-    .completion-info {
-      font-size: 0.9rem; /* Smaller font size for completion info */
-      margin-bottom: 5px; /* Spacing below completion info */
-    }
-    .star-rating {
-      font-size: 1.25rem; /* Adjust star size */
-    }
-    .star-rating .filled {
-      color: #ffc107; /* Filled star color (yellow) */
-    }
-    .star-rating .half {
-      color: #ffc107; /* Half star color (yellow) */
-      position: relative;
-    }
-    .star-rating .half::before {
-      content: "★"; /* Full star */
-      color: #ddd; /* Unfilled star color (light gray) */
-      position: absolute;
-      left: 0;
-      width: 50%; /* Show half of the star */
-      overflow: hidden;
-    }
-    .star-rating .empty {
-      color: #ddd; /* Unfilled star color (light gray) */
-    }
-  </style>
+  <link rel="stylesheet" href="lab5.css">
 </head>
 <body>
 
@@ -328,19 +254,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script> <!-- Font Awesome for search icon -->
-<script>
-  function showSection(sectionId) {
-    // Hide all sections
-    document.querySelectorAll('.section').forEach(section => section.style.display = 'none');
-    
-    // Show the selected section
-    document.getElementById(sectionId).style.display = 'block';
-    
-    // Update the active state of the tabs
-    document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-    document.querySelector(`.nav-link[onclick="showSection('${sectionId}')"]`).classList.add('active');
-  }
-</script>
+<script src="lab5.js"></script>
 
 </body>
 </html>
