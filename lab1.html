@@ -4,37 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account - Trang Web Của Tôi</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-image: url('https://www.hostinger.vn/huong-dan/wp-content/uploads/sites/10/2017/04/cach-tao-trang-web-768x576.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: black;
-        }
-        .form-container {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            width: 100%;
-        }
-        .form-group { margin-bottom: 15px; }
-        .error { color: red; font-size: 0.9em; }
-        .hidden { display: none; }
-        .preview { max-width: 100px; max-height: 100px; margin-top: 10px; }
-        button:disabled { background-color: rgb(128, 128, 128); }
-        @media (max-width: 600px) { 
-            body { padding: 10px; }
-        }
-    </style>
+    <link rel="stylesheet" href="lab1.css">
 </head>
 <body>
     <div class="form-container">
@@ -98,45 +68,6 @@
         </form>
     </div>
 
-    <script>
-        document.getElementById('accountForm').addEventListener('input', validateForm);
-        document.getElementById('cancelButton').addEventListener('click', () => history.back());
-        document.getElementById('createdAt').innerText = new Date().toLocaleString();
-        document.getElementById('updatedAt').innerText = new Date().toLocaleString();
-
-        function togglePassword() {
-            const passwordField = document.getElementById('password');
-            passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
-        }
-
-        function previewImage(event) {
-            const file = event.target.files[0];
-            const imagePreview = document.getElementById('imagePreview');
-            const urlInput = document.getElementById('imageUrl');
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                imagePreview.classList.remove('hidden');
-            }
-            if (file) {
-                reader.readAsDataURL(file);
-                urlInput.value = ''; // Clear URL input if file is selected
-            }
-        }
-
-        function validateForm() {
-            let isValid = true;
-            const username = document.getElementById('username').value;
-            const email = document.getElementById('email').value;
-            const role = document.getElementById('role').value;
-
-            document.getElementById('usernameError').innerText = username.length > 0 ? '' : 'Username is required.';
-            document.getElementById('emailError').innerText = /\S+@\S+\.\S+/.test(email) ? '' : 'Invalid email format.';
-            document.getElementById('roleError').innerText = role.length > 0 ? '' : 'Please select a role.';
-
-            isValid = [...document.querySelectorAll('.error')].every(el => el.innerText === '');
-            document.getElementById('submitButton').disabled = !isValid;
-        }
-    </script>
+    <script src="lab1.js"></script>
 </body>
 </html>
